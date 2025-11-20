@@ -1,0 +1,16 @@
+# Python Gereksizleri
+__pycache__/
+*.py[cod]
+venv/
+.env
+
+# Flutter/Dart Gereksizleri
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+build/
+.pub-cache/
+.pub/
+
+# VS Code Ayarları
+.vscode/
