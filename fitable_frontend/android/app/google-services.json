@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "256263918902",
+    "project_id": "fitable-b7cf6",
+    "storage_bucket": "fitable-b7cf6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:256263918902:android:63c02c3c047b6d7e6acf97",
+        "android_client_info": {
+          "package_name": "com.example.fitable_frontend"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAC90X88u-bQgkDLJV8gCMfnMhdzcsQwDg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
