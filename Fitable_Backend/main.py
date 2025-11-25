@@ -4,7 +4,7 @@ from pydantic import BaseModel
 import uvicorn
 
 # Kendi yazdığımız servisi çağırıyoruz 👇
-from services.scraper import analyze_product_logic
+from scraper_service import analyze_product_logic
 
 app = FastAPI()
 
