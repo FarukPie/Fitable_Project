@@ -1,4 +1,4 @@
-# 1. Python ve Chrome'un olduğu temel bir Linux sürümü seçiyoruz
+# 1. Python ve Chrome'un olduğu temel bir Linux sürümü
 FROM python:3.9-slim
 
 # 2. Gerekli sistem araçlarını ve Chrome'u indiriyoruz
@@ -16,9 +16,8 @@ RUN apt-get update && apt-get install -y \
 # 3. Çalışma klasörünü ayarla
 WORKDIR /app
 
-# 4. Gereksinimleri kopyala ve yükle
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# 4. Paketleri DOĞRUDAN yükle (Dosya arama derdi yok!)
+RUN pip install --no-cache-dir fastapi uvicorn requests python-dotenv selenium webdriver-manager google-generativeai Pillow cloud_firestore firebase_admin
 
 # 5. Tüm kodları kopyala
 COPY . .
