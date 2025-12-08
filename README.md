@@ -16,10 +16,6 @@
 
 Kullanıcılar, Trendyol, Zara, Bershka gibi uygulamalarda gezerken beğendikleri ürünün linkini **Fitable** ile paylaştıklarında; arka planda çalışan yapay zeka algoritmamız ürünün kalıbını, kumaş yapısını ve beden tablosunu analiz eder. Kullanıcının önceden girdiği vücut ölçüleri ile eşleştirerek en doğru bedeni (Örn: "Sana M beden tam olur, kumaşı esnektir") önerir.
 
-## 📱 Ekran Görüntüleri
-
-
-![IMG-20251202-WA0006](https://github.com/user-attachments/assets/2fd82963-3b94-4949-b1d7-84dca51371c3)
 
 
 
@@ -48,6 +44,17 @@ Bu proje, modern mobil mimari ve mikroservis yapısı kullanılarak geliştirilm
 4.  **AI Analizi:** Çekilen karmaşık veri Gemini AI'a gönderilir. AI, bu veriyi temizleyip standart bir JSON formatına dönüştürür.
 5.  **Eşleşme:** Kullanıcının ölçüleri ile ürünün kalıbı kıyaslanır.
 6.  **Sonuç:** Kullanıcıya saniyeler içinde "Sana L Beden Uygundur" bildirimi gider.
+
+## 📱 Ekran Görüntüleri
+![IMG-20251202-WA0006](https://github.com/user-attachments/assets/b1689514-54c1-46e9-8065-cad83a32f438)
+![IMG-20251202-WA0007](https://github.com/user-attachments/assets/51e592ad-dd87-471f-a395-2d834b65a542)
+![IMG-20251202-WA0009](https://github.com/user-attachments/assets/8cb546d5-fcc1-46f2-8b81-6e0fb292a938)
+![IMG-20251202-WA0010](https://github.com/user-attachments/assets/416c2d5e-a09f-4495-94ba-43f887519585)
+![IMG-20251202-WA0008](https://github.com/user-attachments/assets/6c02f41a-6306-4050-9c0b-7ee487ce9191)
+
+
+
+
 
 ## 📦 Kurulum (Geliştirici İçin)
 
@@ -79,4 +86,8 @@ flutter run
 [ ] Premium Üyelik Sistemi
 
 [ ] Daha Fazla Marka Entegrasyonu
+
+
+
+
 
