@@ -6,8 +6,7 @@
 ![Gemini AI](https://img.shields.io/badge/Google%20Gemini%20AI-8E75B2?style=for-the-badge&logo=googlebard&logoColor=white)
 
 <div align="center">
-  <img src="[LOGO_LINKINI_BURAYA_YAPISTIR_VEYA_DOSYA_YOLU]" alt="Fitable Logo" width="200">
-  <br>
+
   <em>"Hangi bedeni almalıyım?" sorusuna yapay zeka destekli kesin çözüm.</em>
 </div>
 
@@ -20,9 +19,12 @@ Kullanıcılar, Trendyol, Zara, Bershka gibi uygulamalarda gezerken beğendikler
 ## 📱 Ekran Görüntüleri
 
 <div align="center">
-  <img src="[SS_1_LINKI]" width="250" alt="Ana Ekran">
-  <img src="[SS_2_LINKI]" width="250" alt="Analiz Sonucu">
-  <img src="[SS_3_LINKI]" width="250" alt="Profil Ekranı">
+![IMG-20251202-WA0010](https://github.com/user-attachments/assets/a07b5b83-b92d-4261-8a28-d12fc0e845fc)
+![IMG-20251202-WA0007](https://github.com/user-attachments/assets/a8a1fd0c-6c5c-4fb9-bf87-861a38f5c4c5)
+![IMG-20251202-WA0008](https://github.com/user-attachments/assets/2f072349-3e59-4b22-bd41-36eb25f92df7)
+![IMG-20251202-WA0009](https://github.com/user-attachments/assets/151039cc-64e9-4e0d-b7f2-52d48c370c40)
+![IMG-20251202-WA0006](https://github.com/user-attachments/assets/af27b8fd-42d5-4f78-b0c6-a55f4963ceff)
+
 </div>
 
 ## 🛠️ Kullanılan Teknolojiler (Tech Stack)
@@ -81,9 +83,4 @@ flutter run
 [ ] Premium Üyelik Sistemi
 
 [ ] Daha Fazla Marka Entegrasyonu
-![IMG-20251202-WA0010](https://github.com/user-attachments/assets/a07b5b83-b92d-4261-8a28-d12fc0e845fc)
-![IMG-20251202-WA0007](https://github.com/user-attachments/assets/a8a1fd0c-6c5c-4fb9-bf87-861a38f5c4c5)
-![IMG-20251202-WA0008](https://github.com/user-attachments/assets/2f072349-3e59-4b22-bd41-36eb25f92df7)
-![IMG-20251202-WA0009](https://github.com/user-attachments/assets/151039cc-64e9-4e0d-b7f2-52d48c370c40)
-![IMG-20251202-WA0006](https://github.com/user-attachments/assets/af27b8fd-42d5-4f78-b0c6-a55f4963ceff)
 
