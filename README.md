@@ -18,10 +18,10 @@ Kullanıcılar, Trendyol, Zara, Bershka gibi uygulamalarda gezerken beğendikler
 
 ## 📱 Ekran Görüntüleri
 
-<div align="center">
+
 ![IMG-20251202-WA0006](https://github.com/user-attachments/assets/2fd82963-3b94-4949-b1d7-84dca51371c3)
 
-</div>
+
 
 ## 🛠️ Kullanılan Teknolojiler (Tech Stack)
 
