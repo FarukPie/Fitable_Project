@@ -19,11 +19,7 @@ Kullanıcılar, Trendyol, Zara, Bershka gibi uygulamalarda gezerken beğendikler
 ## 📱 Ekran Görüntüleri
 
 <div align="center">
-![IMG-20251202-WA0010](https://github.com/user-attachments/assets/a07b5b83-b92d-4261-8a28-d12fc0e845fc)
-![IMG-20251202-WA0007](https://github.com/user-attachments/assets/a8a1fd0c-6c5c-4fb9-bf87-861a38f5c4c5)
-![IMG-20251202-WA0008](https://github.com/user-attachments/assets/2f072349-3e59-4b22-bd41-36eb25f92df7)
-![IMG-20251202-WA0009](https://github.com/user-attachments/assets/151039cc-64e9-4e0d-b7f2-52d48c370c40)
-![IMG-20251202-WA0006](https://github.com/user-attachments/assets/af27b8fd-42d5-4f78-b0c6-a55f4963ceff)
+![IMG-20251202-WA0006](https://github.com/user-attachments/assets/2fd82963-3b94-4949-b1d7-84dca51371c3)
 
 </div>
 
