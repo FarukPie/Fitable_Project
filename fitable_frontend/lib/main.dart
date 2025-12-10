@@ -2,31 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart'; // Import dotenv
 
 // Diğer dosyalarımızı çağırıyoruz 👇
 import 'screens/login_screen.dart';
 import 'screens/home_screen.dart';
 import 'core/constants.dart';
 
-// --- FIREBASE AYARLARI (Kendi kodlarını buraya yapıştır) ---
-const webApiKey = "AIzaSyDW2gEHiv_fcThVLScm5VsTtG2NY-zNuGk"; 
-const webAppId = "1:256263918902:web:061f1631e131d0ce6acf97";
-const webMessagingSenderId = "256263918902";
-const webProjectId = "fitable-b7cf6";
+// --- FIREBASE AYARLARI ---
+// Keys are now loaded from .env file
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   try {
+    await dotenv.load(fileName: ".env"); // Load .env
+    
     await Firebase.initializeApp(
-      options: const FirebaseOptions(
-        apiKey: webApiKey,
-        appId: webAppId,
-        messagingSenderId: webMessagingSenderId,
-        projectId: webProjectId,
+      options: FirebaseOptions(
+        apiKey: dotenv.env['API_KEY'] ?? '',
+        appId: dotenv.env['APP_ID'] ?? '',
+        messagingSenderId: dotenv.env['MESSAGING_SENDER_ID'] ?? '',
+        projectId: dotenv.env['PROJECT_ID'] ?? '',
       ),
     );
   } catch (e) {
-    print("Firebase hatası: $e");
+    print("Firebase/Dotenv hatası: $e");
   }
   runApp(const FitableApp());
 }

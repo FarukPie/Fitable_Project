@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 class ApiService {
   // Python Backend Adresi
   // (Eğer telefonda test ediyorsan buraya Ngrok linkini, emülatörde 10.0.2.2, web'de 127.0.0.1 yazmalısın)
-  static const String _baseUrl = 'http://127.0.0.1:8000'; 
+  static const String _baseUrl = 'https://fitable.onrender.com'; 
 
   // Analiz İsteği Gönderen Fonksiyon
   static Future<Map<String, dynamic>> analizEt({
