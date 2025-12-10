@@ -4,6 +4,7 @@ import requests
 import json
 import re
 from io import BytesIO
+from typing import Optional, Dict, Any, List, Union
 from PIL import Image
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup
@@ -20,10 +21,14 @@ import google.generativeai as genai
 # --- AYARLAR ---
 load_dotenv()
 api_key = os.getenv("GEMINI_API_KEY")
-genai.configure(api_key=api_key)
+if api_key:
+    genai.configure(api_key=api_key)
+else:
+    print("⚠️ UYARI: GEMINI_API_KEY bulunamadı!")
+
 model = genai.GenerativeModel('gemini-2.0-flash', system_instruction="Sen uzman bir e-ticaret ve moda analistisin.")
 
-def init_driver():
+def init_driver() -> webdriver.Chrome:
     """Initializes and returns a Chrome WebDriver with optimized settings."""
     print("🚀 WebDriver Başlatılıyor (Singleton)...")
     chrome_options = Options()
@@ -41,7 +46,7 @@ def init_driver():
     
     return webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 
-def download_image(url):
+def download_image(url: str) -> Optional[Image.Image]:
     """Helper function to download a single image."""
     try:
         resp = requests.get(url, timeout=3)
@@ -51,8 +56,9 @@ def download_image(url):
             return img_data
     except:
         return None
+    return None
 
-def extract_json_from_html(html_content):
+def extract_json_from_html(html_content: str) -> Optional[Dict[str, Any]]:
     """Extracts product data from embedded JSON in HTML."""
     try:
         # Pattern 1: window.__PRODUCT_DETAIL_APP_INITIAL_STATE__
@@ -70,12 +76,19 @@ def extract_json_from_html(html_content):
         pass
     return None
 
-def analyze_product_logic(driver, url, height, weight, shoulder, waist):
-    header = ""
-    feature_text = ""
-    reviews_text = ""
-    images = []
-    processed_urls = []
+def analyze_product_logic(
+    driver: Optional[webdriver.Chrome], 
+    url: str, 
+    height: int, 
+    weight: int, 
+    shoulder: int, 
+    waist: int
+) -> Dict[str, Any]:
+    header: str = ""
+    feature_text: str = ""
+    reviews_text: str = ""
+    images: List[Image.Image] = []
+    processed_urls: List[str] = []
     
     # --- 1. ULTRA HIZLI YÖNTEM (JSON EXTRACTION) ---
     print(f"Ultra Hızlı mod (JSON) deneniyor: {url}")
@@ -181,7 +194,7 @@ def analyze_product_logic(driver, url, height, weight, shoulder, waist):
         - Kullanıcı Ölçüleri: Boy:{height}, Kilo:{weight}, Omuz:{shoulder}, Bel:{waist}
         - Yorumlar: {reviews_text}
         
-       GÖREV 1 (KATEGORİ KONTROLÜ):
+        GÖREV 1 (KATEGORİ KONTROLÜ):
         Bu ürün GİYİM veya AYAKKABI mı? (Mouse, Parfüm, Elektronik vb. DEĞİLDİR).
         Değilse valid: false yap.
         

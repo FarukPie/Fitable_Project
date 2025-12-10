@@ -28,7 +28,7 @@ void main() async {
   } catch (e) {
     print("Firebase/Dotenv hatası: $e");
   }
-  runApp(const FitableApp());
+  runApp(const ProviderScope(child: FitableApp()));
 }
 
 class FitableApp extends StatelessWidget {

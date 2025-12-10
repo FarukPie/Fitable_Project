@@ -23,7 +23,7 @@ COPY . .
 WORKDIR /app/Fitable_Backend
 
 # 6. Paketleri yükle
-RUN pip install --no-cache-dir fastapi uvicorn requests python-dotenv selenium webdriver-manager google-generativeai Pillow firebase_admin
+RUN pip install --no-cache-dir fastapi uvicorn requests python-dotenv selenium webdriver-manager google-generativeai Pillow firebase_admin redis
 
 # 7. Portu aç
 EXPOSE 8000

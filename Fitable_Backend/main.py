@@ -4,18 +4,32 @@ from pydantic import BaseModel
 import uvicorn
 import hashlib
 import json
+import asyncio
+import os
+from concurrent.futures import ThreadPoolExecutor
+
+# Redis (Opsiyonel - Eğer yoksa In-Memory çalışır)
+try:
+    import redis
+except ImportError:
+    redis = None
 
 # Kendi yazdığımız servisi çağırıyoruz 👇
 from scraper_service import analyze_product_logic, init_driver
 
 app = FastAPI()
 
-# Global driver değişkeni
-driver = None
+# --- AYARLAR ---
+REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379/0")
 
-# Basit Cache Sistemi (In-Memory)
-# Key: URL + UserStats Hash, Value: Result JSON
-analysis_cache = {}
+# Global Değişkenler
+driver = None
+driver_lock = asyncio.Lock() # 🔒 Driver'ı aynı anda tek kişinin kullanması için
+executor = ThreadPoolExecutor(max_workers=3) # Blocking işlemleri buraya atacağız
+
+# Cache İstemcisi
+redis_client = None
+local_cache = {}
 
 # --- GÜVENLİK İZNİ (CORS) ---
 app.add_middleware(
@@ -36,46 +50,87 @@ class ProductRequest(BaseModel):
 
 # --- STARTUP / SHUTDOWN EVENTLERİ ---
 @app.on_event("startup")
-def startup_event():
-    global driver
-    # Uygulama başlarken driver'ı bir kere oluştur
+async def startup_event():
+    global driver, redis_client
+    
+    # 1. Driver Başlat
     driver = init_driver()
+    
+    # 2. Redis Bağlantısı (Varsa)
+    if redis:
+        try:
+            redis_client = redis.from_url(REDIS_URL, decode_responses=True)
+            redis_client.ping()
+            print("✅ Redis bağlantısı başarılı!")
+        except Exception as e:
+            print(f"⚠️ Redis bağlanamadı, In-Memory cache kullanılacak: {e}")
+            redis_client = None
 
 @app.on_event("shutdown")
-def shutdown_event():
+async def shutdown_event():
     global driver
-    # Uygulama kapanırken driver'ı temizle
     if driver:
         print("🛑 WebDriver kapatılıyor...")
         driver.quit()
+    if redis_client:
+        redis_client.close()
 
-# --- ANA ENDPOINT (KAPI) ---
+# --- CACHE FONKSİYONLARI ---
+def get_cache(key):
+    if redis_client:
+        try:
+            data = redis_client.get(key)
+            return json.loads(data) if data else None
+        except:
+            return None
+    return local_cache.get(key)
+
+def set_cache(key, value, expire=3600): # 1 Saat Cache
+    if redis_client:
+        try:
+            redis_client.setex(key, expire, json.dumps(value))
+        except:
+            pass
+    else:
+        local_cache[key] = value
+
+# --- ANA ENDPOINT (ASYNC) ---
 @app.post("/analyze")
-def analyze_endpoint(request: ProductRequest):
+async def analyze_endpoint(request: ProductRequest):
     # 1. Cache Kontrolü 🧠
-    # Benzersiz bir anahtar oluştur (URL + Ölçüler)
     cache_key = f"{request.url}-{request.user_height}-{request.user_weight}-{request.user_shoulder}-{request.user_waist}"
     cache_hash = hashlib.md5(cache_key.encode()).hexdigest()
     
-    if cache_hash in analysis_cache:
-        print("⚡ CACHE HIT! Sonuç hafızadan dönülüyor.")
-        return analysis_cache[cache_hash]
+    cached_result = get_cache(cache_hash)
+    if cached_result:
+        print("⚡ CACHE HIT! Sonuç dönülüyor.")
+        return cached_result
 
-    # 2. Analiz İşlemi (Cache Miss)
-    result = analyze_product_logic(
-        driver,
-        request.url, 
-        request.user_height, 
-        request.user_weight, 
-        request.user_shoulder, 
-        request.user_waist
-    )
+    # 2. Analiz İşlemi (Thread Pool + Locking)
+    # Blocking işlemi ana thread'i tıkamaması için executor'da çalıştırıyoruz.
+    # Ancak Driver tek olduğu için sıraya koymak (Lock) zorundayız.
+    
+    async with driver_lock: # 🔒 Sıraya gir
+        loop = asyncio.get_event_loop()
+        
+        # run_in_executor ile senkron fonksiyonu asenkron gibi çalıştır
+        result = await loop.run_in_executor(
+            executor, 
+            analyze_product_logic,
+            driver,
+            request.url, 
+            request.user_height, 
+            request.user_weight, 
+            request.user_shoulder, 
+            request.user_waist
+        )
     
     if "error" in result:
         return {"analysis": "Hata oluştu: " + result["error"], "title": "Hata", "image_url": ""}
     
     # 3. Sonucu Cache'e Kaydet
-    analysis_cache[cache_hash] = result
+    set_cache(cache_hash, result)
+    
     return result
 
 if __name__ == "__main__":
